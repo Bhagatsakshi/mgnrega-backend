@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import mgnregaRoutes from "./routes/mgnregaRoute.js";
+import mgnregaRoutes from "./routes/mgnregaRoutes.js";
 import uploadRoutes from "./routes/uploadRoute.js"; // ✅ your upload route file
 import locationRoutes from "./routes/locationRoute.js";
 
