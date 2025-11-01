@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import mgnregaRoutes from "./routes/mgnregaRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -21,6 +22,7 @@ connectDB();
 
 // Routes
 app.use("/api/mgnrega", mgnregaRoutes);
+app.use("/api/upload", uploadRoutes);
 
 // Error handler
 app.use(errorHandler);
