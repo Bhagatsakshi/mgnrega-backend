@@ -1,28 +1,33 @@
 import express from "express";
-import fetch from "node-fetch";
-
 const router = express.Router();
 
-// GET /api/location?lat=...&lon=...
+// Proxy route for location detection
 router.get("/", async (req, res) => {
   const { lat, lon } = req.query;
 
   if (!lat || !lon) {
-    return res.status(400).json({ error: "Latitude and longitude required" });
+    return res.status(400).json({ error: "Latitude and Longitude are required" });
   }
 
   try {
-    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
-    const response = await fetch(url, {
-      headers: {
-        "User-Agent": "mgnrega-app/1.0 (your-email@example.com)", // Required by Nominatim
-      },
-    });
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`,
+      {
+        headers: {
+          "User-Agent": "OurVoiceOurRights/1.0 (contact@example.com)", // 👈 Required by Nominatim
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Nominatim error: ${response.statusText}`);
+    }
+
     const data = await response.json();
     res.json(data);
-  } catch (err) {
-    console.error("Error fetching location:", err);
-    res.status(500).json({ error: "Failed to fetch location data" });
+  } catch (error) {
+    console.error("Error fetching location:", error);
+    res.status(500).json({ error: "Failed to detect location" });
   }
 });
 

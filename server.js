@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import mgnregaRoutes from "./routes/mgnregaRoutes.js";
-import uploadRoutes from "./routes/uploadRoutes.js"; // ✅ your upload route file
+import mgnregaRoutes from "./routes/mgnregaRoute.js";
+import uploadRoutes from "./routes/uploadRoute.js"; // ✅ your upload route file
 import locationRoutes from "./routes/locationRoute.js";
 
 dotenv.config();
@@ -13,14 +13,15 @@ app.use(express.urlencoded({ extended: true }));
 
 // ✅ CORS configuration
 app.use(
-  cors({
-    origin: [
-      "http://localhost:5173", // local frontend
-      "https://mgnrega-frontend.onrender.com", // deployed frontend
-    ],
-    methods: ["GET", "POST"],
-    credentials: true,
-  })
+    cors({
+        origin: [
+            "http://localhost:5173", // local frontend
+            "https://mgnrega-frontend.onrender.com", // deployed frontend
+        ],
+        methods: ["GET", "POST"],
+        allowedHeaders: ["Content-Type"],
+        credentials: true,
+    })
 );
 
 // ✅ serve static uploads folder (if needed)
@@ -33,7 +34,7 @@ app.use("/api/location", locationRoutes);
 
 // ✅ base route for testing
 app.get("/", (req, res) => {
-  res.send("✅ MGNREGA backend running fine!");
+    res.send("✅ MGNREGA backend running fine!");
 });
 
 // ✅ start server
