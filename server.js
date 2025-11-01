@@ -15,7 +15,7 @@ app.use(
     cors({
         origin: [
             "http://localhost:5173", // local frontend
-            "https://6905f4cfc5bc8c0f34e64110--gorgeous-cendol-820b40.netlify.app/", // deployed frontend
+            "https://gorgeous-cendol-820b40.netlify.app", // deployed frontend
         ],
         methods: ["GET", "POST"],
         allowedHeaders: ["Content-Type"],
