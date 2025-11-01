@@ -9,13 +9,15 @@ import uploadRoutes from "./routes/uploadRoutes.js";
 dotenv.config();
 const app = express();
 
-// Middleware
-app.use(cors({
-  origin: ["http://localhost:5173", "https://your-frontend-name.vercel.app"],
-  credentials: true,
-}));
-
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// CORS setup
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://your-frontend-name.onrender.com",
+];
+app.use(cors({ origin: allowedOrigins, methods: ["GET", "POST"] }));
 
 // Connect DB
 connectDB();
